@@ -3,7 +3,9 @@
 use App\Http\Controllers\EmployeeProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect('https://www.alineglobalbd.com'));
+Route::get('/', function () {
+    return redirect('/admin');
+});
 
 Route::middleware(['throttle:30,1'])->group(function () {
     Route::get('/e/{slug}', [EmployeeProfileController::class, 'show'])->name('employee.public.show');
