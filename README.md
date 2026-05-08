@@ -1,58 +1,228 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ALiNE GLOBAL Employee QR Profile System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A professional digital employee profile system for ALiNE GLOBAL. Employees get a unique public profile with a QR code that can be printed on business cards. When scanned, the QR code opens the employee's digital profile.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- 🎫 **QR Code Generation** - Unique QR code for each employee profile
+- 👤 **Public Digital Profiles** - Mobile-first, professional employee profiles
+- 📱 **Contact Actions** - Call, WhatsApp, Email, and Save Contact buttons
+- 🏢 **Company Management** - Manage company information and offices
+- 👨‍💼 **Employee Management** - Admin panel for managing all employees
+- 📊 **Scan Analytics** - Track profile views and scan counts
+- 💾 **vCard Export** - Download employee details as contact file
+- 🔒 **Role-Based Access** - Admin authentication and permissions
+- 🌐 **Railway Deployment** - Ready for cloud deployment
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Laravel 12** - Web framework
+- **Filament Admin Panel** - Admin dashboard
+- **PostgreSQL** - Database (production)
+- **SQLite** - Database (local development)
+- **Tailwind CSS** - Responsive UI styling
+- **SimpleSoftwareIO/QR Code** - QR code generation
+- **Blade** - Template engine
 
-## Learning Laravel
+## Local Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.3 or higher
+- Composer
+- Node.js and npm
+- Git
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Quick Start
 
-## Agentic Development
+1. **Clone and Install**
+   ```bash
+   cd "d:\Aline Global\alineglobal-employee"
+   composer install
+   npm install
+   ```
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+2. **Setup Environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-```bash
-composer require laravel/boost --dev
+3. **Database & Seed**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-php artisan boost:install
+4. **Build Assets & Link Storage**
+   ```bash
+   npm run build
+   php artisan storage:link
+   ```
+
+5. **Start Server**
+   ```bash
+   php artisan serve
+   ```
+
+Access the app at `http://localhost:8000`
+
+## Admin Panel
+
+- **URL**: http://localhost:8000/admin
+- **Email**: `admin@alineglobalbd.com`
+- **Password**: `password`
+
+⚠️ Change password immediately after login!
+
+## Public Employee Profile Routes
+
+- Profile: `/e/{slug}` - Example: `/e/bijit-das`
+- vCard Download: `/e/{slug}/vcard`
+- Home: `/` - Redirects to company website
+
+## Key Features
+
+### QR Code System
+
+Each employee gets an auto-generated QR code containing only the profile URL:
+```
+https://employee.alineglobalbd.com/e/bijit-das
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Download from the admin panel by clicking **Download QR** on any employee record.
 
-## Contributing
+### Admin Functions
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Companies**
+- Add/edit company info, logo, offices
+- Manage social links
+- Activate/deactivate company
 
-## Code of Conduct
+**Employees**
+- Add/edit employees
+- Upload photos
+- Configure visibility settings
+- Download QR codes
+- View public profile
+- Track scan statistics
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Users**
+- Manage admin accounts
+- Create/edit/delete users
 
-## Security Vulnerabilities
+### Visibility Controls
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+For each employee, control what appears on the public profile:
+- Phone number
+- WhatsApp
+- Email
+- Photo
+- Company address
+
+### Profile Analytics
+
+Track:
+- Total profile scans (scan_count)
+- Last scanned date/time
+- Visitor IP (hashed, not stored raw)
+- User agent
+- Referrer source
+
+## Database
+
+### Key Tables
+
+**companies** - Store company information  
+**employees** - Employee records with visibility flags  
+**profile_views** - Track each profile visit with hashed IP
+
+SoftDeletes enabled on employees for data safety.
+
+## Testing
+
+```bash
+php artisan test tests/Feature/EmployeeProfileTest.php
+```
+
+Tests cover:
+- ✅ Active profiles display correctly
+- ✅ Inactive profiles show unavailable
+- ✅ vCard downloads work
+- ✅ Scan count increments
+- ✅ Hidden fields respected
+
+## Railway Deployment
+
+### Setup
+
+1. Create Railway project
+2. Connect GitHub repo
+3. Add PostgreSQL service
+4. Set environment variables
+5. Configure custom domain (employee.alineglobalbd.com)
+
+### Environment Variables
+
+```
+APP_NAME=ALiNE Employee Profile
+APP_ENV=production
+APP_KEY=base64:...
+APP_DEBUG=false
+APP_URL=https://employee.alineglobalbd.com
+DB_CONNECTION=pgsql
+FILESYSTEM_DISK=public
+```
+
+### Deploy Commands
+
+```bash
+php artisan migrate --force
+php artisan db:seed --force
+php -S 0.0.0.0:$PORT -t public
+```
+
+## Security
+
+✅ Admin routes protected  
+✅ IP addresses hashed (SHA-256)  
+✅ Rate limiting on public routes (30/min)  
+✅ Soft deletes for employees  
+✅ Automatic HTML escaping  
+✅ Only active employees visible  
+
+## Sample Data
+
+Default seeder creates:
+- **Company**: ALiNE GLOBAL with all office info
+- **Employee**: Bijit Das (Brand Acquisition Manager)
+- **Admin**: admin@alineglobalbd.com / password
+
+## File Uploads
+
+- **Logos**: `/storage/companies/`
+- **Photos**: `/storage/employees/`
+
+Requires `php artisan storage:link`
+
+## Troubleshooting
+
+**404 on /admin**  
+Check `bootstrap/providers.php` includes AdminPanelProvider
+
+**Photos not showing**  
+Run `php artisan storage:link`
+
+**Database errors**  
+Local: Ensure `DB_CONNECTION=sqlite`  
+Production: Check PostgreSQL credentials
+
+## Support
+
+- **Email**: info@alineglobalbd.com
+- **Website**: https://www.alineglobalbd.com
+- **Bangladesh**: Borak Mehnur, 51/B, Kemal Ataturk Avenue, Banani, Dhaka-1213
+- **UK**: 167-169 Great Portland Street, 5th Floor, London W1W 5PF
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+© ALiNE GLOBAL - All rights reserved
