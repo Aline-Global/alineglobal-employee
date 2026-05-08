@@ -1,6 +1,6 @@
-@extends('filament::layouts.auth')
-
-@section('content')
+<?php
+// This is the login page view
+?>
 <style>
     body {
         background: linear-gradient(135deg, #eff6ff 0%, #ffffff 25%, #f0f9ff 75%, #e0f2fe 100%);
@@ -349,4 +349,3 @@
         </div>
     </div>
 </div>
-@endsection
