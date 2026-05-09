@@ -1,0 +1,76 @@
+:root {
+    --ui-bg: #f4f7fb;
+    --ui-card: #ffffff;
+    --ui-border: #dbe4f0;
+    --ui-primary: #2563eb;
+    --ui-primary-strong: #1d4ed8;
+}
+
+.fi-body {
+    background:
+        radial-gradient(circle at top right, #dbeafe 0%, transparent 35%),
+        radial-gradient(circle at top left, #e0f2fe 0%, transparent 30%),
+        var(--ui-bg);
+}
+
+.fi-topbar,
+.fi-sidebar,
+.fi-ta,
+.fi-section,
+.fi-card {
+    border-color: var(--ui-border) !important;
+}
+
+.fi-sidebar {
+    background: linear-gradient(180deg, #f8fbff 0%, #f1f5f9 100%);
+}
+
+.fi-sidebar-item-button {
+    border-radius: 10px;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-button {
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.12), rgba(59, 130, 246, 0.05));
+    color: var(--ui-primary-strong);
+    font-weight: 700;
+}
+
+.fi-page-header-heading {
+    letter-spacing: -0.02em;
+}
+
+.fi-ta {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
+}
+
+.fi-ta thead th {
+    background: #f8fafc;
+}
+
+.fi-ta-record:hover td {
+    background: #f8fbff;
+}
+
+.fi-btn,
+.fi-input-wrp,
+.fi-select-input,
+.fi-ta-search-field {
+    border-radius: 10px !important;
+}
+
+.fi-fo-section {
+    border-radius: 14px;
+    border: 1px solid var(--ui-border);
+    background: var(--ui-card);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03);
+}
+
+.fi-fo-field-wrp-label span {
+    font-weight: 600;
+}
+
+.fi-badge {
+    border-radius: 999px;
+}
