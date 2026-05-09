@@ -4,7 +4,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends git unzip libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN install-php-extensions exif intl pcntl bcmath gd pdo_pgsql zip fileinfo
+RUN install-php-extensions exif intl pcntl bcmath gd pdo_pgsql zip fileinfo imagick
 
 WORKDIR /app
 
