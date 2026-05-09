@@ -31,14 +31,22 @@
 
             <!-- Employee Info Card -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                <h1 class="text-3xl font-bold text-gray-900 mb-1">{{ $employee->full_name }}</h1>
-                @if($employee->designation)
-                    <p class="text-lg text-blue-600 font-semibold mb-1">{{ $employee->designation }}</p>
-                @endif
-                @if($employee->department)
-                    <p class="text-sm text-gray-600 mb-4">{{ $employee->department }}</p>
-                @endif
-                <p class="text-sm text-gray-700 mb-4">{{ $employee->company->name }}</p>
+                <div class="flex items-start justify-between gap-4">
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-1">{{ $employee->full_name }}</h1>
+                        @if($employee->designation)
+                            <p class="text-lg text-blue-600 font-semibold mb-1">{{ $employee->designation }}</p>
+                        @endif
+                        @if($employee->department)
+                            <p class="text-sm text-gray-600 mb-4">{{ $employee->department }}</p>
+                        @endif
+                        <p class="text-sm text-gray-700 mb-4">{{ $employee->company->name }}</p>
+                    </div>
+
+                    @if($employee->show_photo && $employee->photo_url)
+                        <img src="{{ asset('storage/' . $employee->photo_url) }}" alt="{{ $employee->full_name }}" class="w-20 h-20 rounded-xl object-cover border border-gray-100 shadow-sm">
+                    @endif
+                </div>
 
                 @if($employee->bio)
                     <p class="text-sm text-gray-600 mt-4 pt-4 border-t border-gray-200">{{ $employee->bio }}</p>
@@ -95,24 +103,52 @@
                     @if($employee->company->bangladesh_office_address)
                         <div class="mb-4">
                             <h3 class="font-semibold text-gray-800 text-sm mb-1">Bangladesh Office</h3>
-                            <p class="text-sm text-gray-600">{{ $employee->company->bangladesh_office_address }}</p>
+                            <p class="text-sm text-gray-600 flex items-start gap-2">
+                                <span class="text-red-500 mt-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/>
+                                    </svg>
+                                </span>
+                                <span>{{ $employee->company->bangladesh_office_address }}</span>
+                            </p>
                         </div>
                     @endif
 
                     @if($employee->company->uk_office_address)
                         <div class="mb-4">
                             <h3 class="font-semibold text-gray-800 text-sm mb-1">UK Office</h3>
-                            <p class="text-sm text-gray-600">{{ $employee->company->uk_office_address }}</p>
+                            <p class="text-sm text-gray-600 flex items-start gap-2">
+                                <span class="text-red-500 mt-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/>
+                                    </svg>
+                                </span>
+                                <span>{{ $employee->company->uk_office_address }}</span>
+                            </p>
                         </div>
                     @endif
 
                     @if($employee->company->main_email || $employee->company->phone)
                         <div class="pt-4 border-t border-gray-200">
                             @if($employee->company->main_email)
-                                <p class="text-sm text-gray-600 mb-1"><strong>Email:</strong> {{ $employee->company->main_email }}</p>
+                                <p class="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                                    <span class="text-blue-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M2.25 6.75A2.25 2.25 0 014.5 4.5h15A2.25 2.25 0 0121.75 6.75v10.5A2.25 2.25 0 0119.5 19.5h-15A2.25 2.25 0 012.25 17.25V6.75zm2.4-.75L12 11.1 19.35 6H4.65z"/>
+                                        </svg>
+                                    </span>
+                                    <strong>Email:</strong> {{ $employee->company->main_email }}
+                                </p>
                             @endif
                             @if($employee->company->phone)
-                                <p class="text-sm text-gray-600"><strong>Phone:</strong> {{ $employee->company->phone }}</p>
+                                <p class="text-sm text-gray-600 flex items-center gap-2">
+                                    <span class="text-green-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6.62 10.79a15.53 15.53 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.57 3.58 1 1 0 01-.24 1.01l-2.2 2.2z"/>
+                                        </svg>
+                                    </span>
+                                    <strong>Phone:</strong> {{ $employee->company->phone }}
+                                </p>
                             @endif
                         </div>
                     @endif
