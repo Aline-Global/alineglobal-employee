@@ -15,7 +15,6 @@ use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class EmployeeResource extends Resource
 {
@@ -136,8 +135,9 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('photo_url')
-                    ->getStateUsing(fn (Employee $record): ?string => filled($record->photo_url) && Storage::disk('public')->exists($record->photo_url) ? $record->photo_url : null)
-                    ->defaultImageUrl(fn (Employee $record): string => 'https://ui-avatars.com/api/?name=' . urlencode((string) $record->full_name) . '&background=f3e8ef&color=8e1d56&size=96')
+                    ->label('Photo')
+                    ->getStateUsing(fn (Employee $record): ?string => $record->photo_public_url)
+                    ->defaultImageUrl(fn (Employee $record): string => $record->photo_fallback_url)
                     ->circular(),
                 Tables\Columns\TextColumn::make('full_name')
                     ->searchable()

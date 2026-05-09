@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Employee extends Model
@@ -80,5 +81,25 @@ class Employee extends Model
     public function profileViews(): HasMany
     {
         return $this->hasMany(ProfileView::class);
+    }
+
+    public function getPhotoPublicUrlAttribute(): ?string
+    {
+        $photo = $this->photo_url;
+
+        if (blank($photo)) {
+            return null;
+        }
+
+        if (Str::startsWith($photo, ['http://', 'https://'])) {
+            return $photo;
+        }
+
+        return Storage::disk('public')->url($photo);
+    }
+
+    public function getPhotoFallbackUrlAttribute(): string
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode((string) $this->full_name) . '&background=f3e8ef&color=8e1d56&size=160';
     }
 }

@@ -19,9 +19,16 @@
         </div>
 
         <div class="flex-1 max-w-md mx-auto w-full px-4 py-8">
-            @if($employee->show_photo && $employee->photo_url)
+            @if($employee->show_photo)
                 <div class="text-center mb-6">
-                    <img src="{{ asset('storage/' . $employee->photo_url) }}" alt="{{ $employee->full_name }}" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-lg">
+                    <img
+                        src="{{ $employee->photo_public_url ?: $employee->photo_fallback_url }}"
+                        alt="{{ $employee->full_name }}"
+                        class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-lg"
+                        loading="eager"
+                        decoding="async"
+                        onerror="this.onerror=null; this.src='{{ $employee->photo_fallback_url }}';"
+                    >
                 </div>
             @endif
 
