@@ -72,8 +72,7 @@ class EmployeeResource extends Resource
                         Forms\Components\FileUpload::make('photo_url')
                             ->disk('public')
                             ->directory('employees')
-                            ->image()
-                            ->imageEditor(),
+                            ->image(),
                         Forms\Components\Toggle::make('public_profile_enabled')
                             ->default(true),
                         Forms\Components\Toggle::make('show_phone')

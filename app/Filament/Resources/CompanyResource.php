@@ -29,8 +29,7 @@ class CompanyResource extends Resource
                         Forms\Components\FileUpload::make('logo_url')
                             ->disk('public')
                             ->directory('companies')
-                            ->image()
-                            ->imageEditor(),
+                            ->image(),
                         Forms\Components\TextInput::make('tagline')
                             ->maxLength(255),
                         Forms\Components\Textarea::make('about')
