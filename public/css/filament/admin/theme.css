@@ -4,6 +4,8 @@
     --ui-border: #dbe4f0;
     --ui-primary: #8e1d56;
     --ui-primary-strong: #741646;
+    --sidebar-width: 15rem;
+    --collapsed-sidebar-width: 4.25rem;
 }
 
 .fi-body {
@@ -23,6 +25,18 @@
 
 .fi-sidebar {
     background: linear-gradient(180deg, #fdf7fa 0%, #f8f1f5 100%);
+}
+
+/* Give more room to table content on desktop */
+.fi-main {
+    max-width: 100% !important;
+}
+
+@media (min-width: 1024px) {
+    .fi-main {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
 }
 
 .fi-sidebar-item-button {
