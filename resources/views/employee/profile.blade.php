@@ -34,9 +34,9 @@
 
             <div class="bg-white rounded-2xl shadow-md p-7 mb-6 border border-gray-100 max-w-xl mx-auto">
                 <div class="text-center">
-                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2 leading-tight">{{ $employee->full_name }}</h1>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 leading-tight">{{ $employee->full_name }}</h1>
                     @if($employee->designation)
-                        <p class="text-xl sm:text-2xl text-[#8e1d56] font-semibold mb-2 leading-snug">{{ $employee->designation }}</p>
+                        <p class="text-lg sm:text-xl text-[#8e1d56] font-semibold mb-2 leading-snug">{{ $employee->designation }}</p>
                     @endif
                     @if($employee->department)
                         <p class="text-base text-gray-600 mb-5">{{ $employee->department }}</p>
