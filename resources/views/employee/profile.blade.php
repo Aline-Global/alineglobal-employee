@@ -11,9 +11,10 @@
     <div class="min-h-screen flex flex-col">
         <!-- Header -->
         <div class="bg-white border-b border-gray-200 py-4">
-            <div class="max-w-md mx-auto px-4 flex justify-center">
+            <div class="max-w-md mx-auto px-4 flex items-center justify-center gap-3">
                 @if($employee->company->logo_url)
-                    <img src="{{ asset('storage/' . $employee->company->logo_url) }}" alt="{{ $employee->company->name }}" class="h-12">
+                    <img src="{{ asset('storage/' . $employee->company->logo_url) }}" alt="{{ $employee->company->name }}" class="h-14 w-auto object-contain">
+                    <h1 class="text-xl font-bold text-gray-900">{{ $employee->company->name }}</h1>
                 @else
                     <h1 class="text-lg font-bold text-gray-900">{{ $employee->company->name }}</h1>
                 @endif
@@ -31,21 +32,15 @@
 
             <!-- Employee Info Card -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                <div class="flex items-start justify-between gap-4">
-                    <div class="flex-1 min-w-0">
-                        <h1 class="text-3xl font-bold text-gray-900 mb-1">{{ $employee->full_name }}</h1>
-                        @if($employee->designation)
-                            <p class="text-lg text-blue-600 font-semibold mb-1">{{ $employee->designation }}</p>
-                        @endif
-                        @if($employee->department)
-                            <p class="text-sm text-gray-600 mb-4">{{ $employee->department }}</p>
-                        @endif
-                        <p class="text-sm text-gray-700 mb-4">{{ $employee->company->name }}</p>
-                    </div>
-
-                    @if($employee->show_photo && $employee->photo_url)
-                        <img src="{{ asset('storage/' . $employee->photo_url) }}" alt="{{ $employee->full_name }}" class="w-20 h-20 rounded-xl object-cover border border-gray-100 shadow-sm">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-1">{{ $employee->full_name }}</h1>
+                    @if($employee->designation)
+                        <p class="text-lg text-blue-600 font-semibold mb-1">{{ $employee->designation }}</p>
                     @endif
+                    @if($employee->department)
+                        <p class="text-sm text-gray-600 mb-4">{{ $employee->department }}</p>
+                    @endif
+                    <p class="text-sm text-gray-700 mb-4">{{ $employee->company->name }}</p>
                 </div>
 
                 @if($employee->bio)
