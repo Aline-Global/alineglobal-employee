@@ -47,4 +47,4 @@ ENV APP_DEBUG=false
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan migrate --force && php artisan optimize && php artisan filament:assets && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+CMD ["sh", "-c", "mkdir -p storage/app/public storage/app/private storage/framework/livewire-tmp && php artisan storage:link || true && php artisan migrate --force && php artisan optimize && php artisan filament:assets && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
