@@ -5,6 +5,11 @@ body {
     background: linear-gradient(135deg, #eff6ff 0%, #ffffff 25%, #f0f9ff 75%, #e0f2fe 100%) !important;
 }
 
+:root {
+    --brand-primary: #8e1d56;
+    --brand-primary-dark: #741646;
+}
+
 /* Login form wrapper styling */
 .fi-simple-page {
     background: transparent !important;
@@ -37,17 +42,17 @@ input[type="email"]:focus,
 input[type="password"]:focus {
     outline: none !important;
     background-color: white !important;
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+    border-color: var(--brand-primary) !important;
+    box-shadow: 0 0 0 3px rgba(142, 29, 86, 0.15) !important;
 }
 
 /* Submit button */
 button[type="submit"],
 .fi-btn-primary {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%) !important;
     border-radius: 10px !important;
     padding: 12px 16px !important;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(142, 29, 86, 0.3) !important;
     width: 100% !important;
     transition: all 0.3s ease !important;
 }
@@ -55,7 +60,7 @@ button[type="submit"],
 button[type="submit"]:hover,
 .fi-btn-primary:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(142, 29, 86, 0.4) !important;
 }
 
 button[type="submit"]:active,
@@ -72,7 +77,7 @@ label {
 
 /* Checkbox */
 input[type="checkbox"] {
-    accent-color: #2563eb !important;
+    accent-color: var(--brand-primary) !important;
 }
 
 /* Error messages */

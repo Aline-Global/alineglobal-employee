@@ -31,10 +31,10 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('ALiNE Employee Portal')
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => Color::hex('#8e1d56'),
                 'danger' => Color::Red,
                 'gray' => Color::Gray,
-                'info' => Color::Blue,
+                'info' => Color::hex('#8e1d56'),
                 'success' => Color::Green,
                 'warning' => Color::Amber,
             ])
