@@ -69,12 +69,6 @@
                     👤 Save Contact
                 </a>
 
-                @if($employee->company->website)
-                    <a href="{{ $employee->company->website }}" target="_blank" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-4 rounded-lg text-center text-sm transition">
-                        🌐 Website
-                    </a>
-                @endif
-
                 @if($employee->company->map_url)
                     <a href="{{ $employee->company->map_url }}" target="_blank" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-4 rounded-lg text-center text-sm transition">
                         📍 Map
@@ -124,19 +118,42 @@
                     @endif
 
                     <!-- Social Links -->
-                    @if($employee->company->facebook_url || $employee->company->linkedin_url || $employee->company->instagram_url || $employee->company->youtube_url)
-                        <div class="flex gap-3 mt-4 pt-4 border-t border-gray-200 justify-center">
+                    @if($employee->company->website || $employee->company->facebook_url || $employee->company->linkedin_url || $employee->company->instagram_url || $employee->company->youtube_url)
+                        <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-gray-200 justify-center">
+                            @if($employee->company->website)
+                                <a href="{{ $employee->company->website }}" target="_blank" aria-label="Website" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-indigo-100 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9h-3.04a15.7 15.7 0 00-1.38-5.03A8.02 8.02 0 0119.93 11zM12 4c.83 1.2 1.78 3.54 2.07 7H9.93c.29-3.46 1.24-5.8 2.07-7zM8.49 5.97A15.7 15.7 0 007.11 11H4.07a8.02 8.02 0 014.42-5.03zM4.07 13h3.04c.2 1.83.73 3.57 1.38 5.03A8.02 8.02 0 014.07 13zM12 20c-.83-1.2-1.78-3.54-2.07-7h4.14c-.29 3.46-1.24 5.8-2.07 7zm3.51-1.97A15.7 15.7 0 0016.89 13h3.04a8.02 8.02 0 01-4.42 5.03z"/>
+                                    </svg>
+                                </a>
+                            @endif
                             @if($employee->company->facebook_url)
-                                <a href="{{ $employee->company->facebook_url }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">Facebook</a>
+                                <a href="{{ $employee->company->facebook_url }}" target="_blank" aria-label="Facebook" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-blue-100 bg-blue-50 text-blue-600 hover:bg-blue-100 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0022 12z"/>
+                                    </svg>
+                                </a>
                             @endif
                             @if($employee->company->linkedin_url)
-                                <a href="{{ $employee->company->linkedin_url }}" target="_blank" class="text-blue-700 hover:text-blue-900 text-sm font-semibold">LinkedIn</a>
+                                <a href="{{ $employee->company->linkedin_url }}" target="_blank" aria-label="LinkedIn" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-sky-100 bg-sky-50 text-sky-700 hover:bg-sky-100 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M6.94 8.5a1.56 1.56 0 110-3.12 1.56 1.56 0 010 3.12zM5.56 9.69h2.76V18H5.56V9.69zM10.25 9.69h2.65v1.14h.04c.37-.7 1.27-1.44 2.62-1.44 2.8 0 3.32 1.85 3.32 4.25V18h-2.76v-3.88c0-.93-.02-2.12-1.29-2.12-1.3 0-1.5 1.01-1.5 2.05V18h-2.76V9.69z"/>
+                                    </svg>
+                                </a>
                             @endif
                             @if($employee->company->instagram_url)
-                                <a href="{{ $employee->company->instagram_url }}" target="_blank" class="text-pink-600 hover:text-pink-800 text-sm font-semibold">Instagram</a>
+                                <a href="{{ $employee->company->instagram_url }}" target="_blank" aria-label="Instagram" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-pink-100 bg-pink-50 text-pink-600 hover:bg-pink-100 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm8.34 1.72h-8.18a4.2 4.2 0 00-4.2 4.2v8.18a4.2 4.2 0 004.2 4.2h8.18a4.2 4.2 0 004.2-4.2V7.92a4.2 4.2 0 00-4.2-4.2zm-4.09 3.9a4.38 4.38 0 110 8.76 4.38 4.38 0 010-8.76zm0 1.72a2.66 2.66 0 100 5.32 2.66 2.66 0 000-5.32zm4.56-2.05a1.03 1.03 0 110 2.06 1.03 1.03 0 010-2.06z"/>
+                                    </svg>
+                                </a>
                             @endif
                             @if($employee->company->youtube_url)
-                                <a href="{{ $employee->company->youtube_url }}" target="_blank" class="text-red-600 hover:text-red-800 text-sm font-semibold">YouTube</a>
+                                <a href="{{ $employee->company->youtube_url }}" target="_blank" aria-label="YouTube" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-red-100 bg-red-50 text-red-600 hover:bg-red-100 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M21.58 7.19a2.82 2.82 0 00-1.98-1.99C17.86 4.73 12 4.73 12 4.73s-5.86 0-7.6.47a2.82 2.82 0 00-1.98 1.99A29.6 29.6 0 002 12a29.6 29.6 0 00.42 4.81 2.82 2.82 0 001.98 1.99c1.74.47 7.6.47 7.6.47s5.86 0 7.6-.47a2.82 2.82 0 001.98-1.99A29.6 29.6 0 0022 12a29.6 29.6 0 00-.42-4.81zM10 15.5v-7l6 3.5-6 3.5z"/>
+                                    </svg>
+                                </a>
                             @endif
                         </div>
                     @endif
