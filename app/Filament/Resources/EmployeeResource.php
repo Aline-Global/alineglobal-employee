@@ -6,11 +6,16 @@ use App\Filament\Resources\EmployeeResource\Pages;
 use App\Models\Employee;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeResource extends Resource
 {
@@ -30,9 +35,24 @@ class EmployeeResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('full_name')
                             ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Set $set, Get $get, ?string $state, ?string $old): void {
+                                $currentSlug = (string) ($get('slug') ?? '');
+                                $previousNameSlug = Str::slug((string) ($old ?? ''));
+
+                                // Auto-generate only when slug is blank or still tracking previous name.
+                                if ($currentSlug === '' || $currentSlug === $previousNameSlug) {
+                                    $set('slug', static::generateUniqueSlugFromName((string) $state));
+                                }
+                            })
                             ->maxLength(255),
                         Forms\Components\TextInput::make('slug')
                             ->unique(ignoreRecord: true)
+                            ->required()
+                            ->helperText('Auto-generated from full name. You can edit it manually.')
+                            ->validationMessages([
+                                'unique' => 'This slug is already used. Please choose a different slug.',
+                            ])
                             ->maxLength(255),
                         Forms\Components\TextInput::make('employee_code')
                             ->unique(ignoreRecord: true),
@@ -45,6 +65,7 @@ class EmployeeResource extends Resource
                                 'active' => 'Active',
                                 'inactive' => 'Inactive',
                             ])
+                            ->required()
                             ->default('active'),
                     ])
                     ->columns(2),
@@ -91,11 +112,32 @@ class EmployeeResource extends Resource
             ->columns(1);
     }
 
+    protected static function generateUniqueSlugFromName(string $name): string
+    {
+        $baseSlug = Str::slug($name);
+
+        if ($baseSlug === '') {
+            return '';
+        }
+
+        $slug = $baseSlug;
+        $suffix = 2;
+
+        while (Employee::where('slug', $slug)->exists()) {
+            $slug = "{$baseSlug}-{$suffix}";
+            $suffix++;
+        }
+
+        return $slug;
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('photo_url')
+                    ->getStateUsing(fn (Employee $record): ?string => filled($record->photo_url) && Storage::disk('public')->exists($record->photo_url) ? $record->photo_url : null)
+                    ->defaultImageUrl(fn (Employee $record): string => 'https://ui-avatars.com/api/?name=' . urlencode((string) $record->full_name) . '&background=f3e8ef&color=8e1d56&size=96')
                     ->circular(),
                 Tables\Columns\TextColumn::make('full_name')
                     ->searchable()
@@ -146,6 +188,8 @@ class EmployeeResource extends Resource
                     ->icon('heroicon-m-ellipsis-horizontal')
                     ->label('Actions'),
             ])
+            ->actionsPosition(ActionsPosition::BeforeColumns)
+            ->recordUrl(null)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
