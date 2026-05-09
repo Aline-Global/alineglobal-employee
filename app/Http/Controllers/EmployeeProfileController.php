@@ -78,10 +78,11 @@ class EmployeeProfileController extends Controller
     public function qrDownload(Employee $employee)
     {
         $url = route('employee.public.show', $employee->slug);
-        $qr = QrCode::format('png')->size(400)->margin(2)->generate($url);
+        $format = extension_loaded('imagick') ? 'png' : 'svg';
+        $qr = QrCode::format($format)->size(400)->margin(2)->generate($url);
 
         return response($qr)
-            ->header('Content-Type', 'image/png')
-            ->header('Content-Disposition', "attachment; filename=employee-{$employee->slug}-qr.png");
+            ->header('Content-Type', $format === 'png' ? 'image/png' : 'image/svg+xml')
+            ->header('Content-Disposition', "attachment; filename=employee-{$employee->slug}-qr.{$format}");
     }
 }
